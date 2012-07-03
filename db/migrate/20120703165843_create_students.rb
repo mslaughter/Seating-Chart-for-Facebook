@@ -4,7 +4,7 @@ class CreateStudents < ActiveRecord::Migration
       t.integer   :classroom_id
       t.string    :name
       t.boolean   :pin, default: false
-      t.integer   :pinned_table
+      t.string    :pinned_table
       t.string    :students_sat_next_to, default: ""
       
       t.timestamps
