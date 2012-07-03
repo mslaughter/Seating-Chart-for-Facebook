@@ -43,6 +43,8 @@ class ClassroomsController < ApplicationController
         end
       end
       
+      puts "Table hash after pinning: #{table_hash}"
+      
       for t in table_hash.keys()
         if table_hash[t].length < 1
           while (1 > table_hash[t].length)
@@ -142,4 +144,3 @@ class ClassroomsController < ApplicationController
       return final_hash
     end
 end
-

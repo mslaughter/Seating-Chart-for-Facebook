@@ -2,14 +2,14 @@
 #
 # Table name: students
 #
-#  id                   :integer         not null, primary key
+#  id                   :integer         primary key
 #  classroom_id         :integer
 #  name                 :string(255)
-#  pin                  :boolean         default(FALSE)
-#  pinned_table         :integer
+#  pin                  :boolean
+#  pinned_table         :string(255)
 #  students_sat_next_to :string(255)
-#  created_at           :datetime        not null
-#  updated_at           :datetime        not null
+#  created_at           :datetime
+#  updated_at           :datetime
 #
 
 class Student < ActiveRecord::Base

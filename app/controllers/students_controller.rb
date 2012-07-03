@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
     @classroom = Classroom.find(params[:id])
     for student in @classroom.students
       if student.pin
-        pin_table = Integer(params["#{student.name}"])
+        pin_table = params["#{student.name}"]
         student[:pinned_table] = pin_table
         student.save
       end
