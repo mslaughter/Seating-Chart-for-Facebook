@@ -1,0 +1,29 @@
+<% provide(:title, @classroom.name) %>
+<h1><%= @classroom.name %></h1>
+
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th><%= "" %></th>
+			<% for i in (1..@classroom.tables.length) %>
+				<th><%= "Table #{i}" %></th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% for iteration in @results_hash.keys() %>
+		<tr>
+			<td><%= "Session #{iteration}" %></td>
+			<% for table in @results_hash[iteration].keys() %>
+				<% nice_names = "" %>
+				<% for name in @results_hash[iteration][table] %>
+					<% nice_names += "#{name}, " %>
+				<% end %>
+				<% nice_names.slice!(-1) %>
+				<% nice_names.slice!(-1) %>
+				<td><%= nice_names %></td>
+			<% end %>
+		</tr>
+		<% end %>
+	</tbody>		
+</table>

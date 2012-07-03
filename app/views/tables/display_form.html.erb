@@ -1,0 +1,20 @@
+<% provide(:title, 'Build Classroom - Tables') %>
+<h1>Build Classroom - Tables</h1>
+
+<div class="row">
+	<div class="span6 offset3">	
+		<% @classroom = Classroom.find(params[:id]) %>
+		<%= form_tag (addtables_path method: 'post', id: params[:id]) do %>
+		
+			<% (1..@classroom.num_tables).each do |t| %>
+				
+				<label><%= "Table #{t}" %></label>
+				<%= text_field "table #{t}", "max_students", placeholder: "Max students..." %>
+			
+			<% end %>
+			
+			<%= submit_tag 'Submit' %>
+			
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<% provide(:title, 'Build Classroom - Students') %>
+<h1>Build Classroom - Students</h1>
+
+<div class="row">
+	<div class="span5 offset3">	
+		<% @classroom = Classroom.find(params[:id]) %>
+		<% tables = [] %>
+		<% for table in @classroom.tables %>
+			<% tables.push(table.name) %>
+		<% end %>
+		<%= form_tag (add_pin_table_path method: 'post', id: params[:id]) do %>
+			<% for student in @classroom.students %>
+				<% if student.pin %>
+					<label><%= "Pin #{student.name} to which table?"%></label>
+					<%= select_tag "#{student.name}", options_for_select(tables) %>
+				<% end %>
+			<% end %>
+		<%= submit_tag 'Submit' %>
+		<% end %>
+	</div>
+</div>

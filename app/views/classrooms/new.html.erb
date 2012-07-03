@@ -1,0 +1,24 @@
+<% provide(:title, 'Build Classroom') %>
+<h1>Build Classroom</h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@classroom) do |f| %>
+			<%= render partial: 'shared/error_messages_2' %>
+			
+			<%= f.label :name, "Classroom Name" %>
+			<%= f.text_field :name %>
+			
+			<%= f.label :num_tables, "Number of Tables" %>
+			<%= f.text_field :num_tables %>
+			
+			<%= f.label :num_students, "Number of Students" %>
+			<%= f.text_field :num_students %>
+			
+			<%= f.label :iterations, "Number of Seat Changes" %>
+			<%= f.text_field :iterations %>
+			
+			<%= f.submit "Submit", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>

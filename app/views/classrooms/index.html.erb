@@ -1,0 +1,25 @@
+<% provide(:title, 'Classrooms') %>
+<h1>Classrooms</h1>
+
+<% @user = current_user %>
+
+<%= link_to "Create Classroom", newclassroom_path, class: "btn btn-primary" %><br />
+
+<% if (@user.classrooms.all.count < 1) then %>
+	<p>
+		<br />
+		You currently have no classrooms.
+	</p>
+<% else %>
+
+	<% for classroom in @user.classrooms.all %>
+		<ul class="classrooms">
+			<p></p><br />
+			<%= link_to classroom.name, classroom %>
+			<%= "||" %>
+			<%= link_to "delete", classroom, method: :delete,
+										data: { confirm: "You sure?" } %>
+		</ul>
+	<% end %>
+	
+<% end %>
