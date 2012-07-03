@@ -2,11 +2,11 @@
 #
 # Table name: students
 #
-#  id                   :integer         primary key
+#  id                   :integer         not null, primary key
 #  classroom_id         :integer
 #  name                 :string(255)
 #  pin                  :boolean
-#  pinned_table         :string(255)
+#  pinned_table         :integer
 #  students_sat_next_to :string(255)
 #  created_at           :datetime
 #  updated_at           :datetime

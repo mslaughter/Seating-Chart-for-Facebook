@@ -3,12 +3,12 @@
 # Table name: tables
 #
 #  id           :integer         not null, primary key
-#  name         :string(255)
+#  name         :integer
 #  classroom_id :integer
 #  max_students :integer
 #  students     :string(255)
-#  created_at   :datetime        not null
-#  updated_at   :datetime        not null
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 require 'spec_helper'

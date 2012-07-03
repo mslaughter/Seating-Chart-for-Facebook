@@ -28,19 +28,19 @@ ActiveRecord::Schema.define(:version => 20120703170836) do
     t.integer  "classroom_id"
     t.string   "name"
     t.boolean  "pin"
-    t.string   "pinned_table"
+    t.integer  "pinned_table"
     t.string   "students_sat_next_to"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "tables", :force => true do |t|
-    t.string   "name"
+    t.integer  "name"
     t.integer  "classroom_id"
     t.integer  "max_students"
     t.string   "students"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
