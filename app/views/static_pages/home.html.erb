@@ -5,13 +5,14 @@
 		The place to build seating charts for any and all situations
 	</h2>
 	
+	<img src="/assets/notebook_01.png" width="125">
+	
+	<p></p><br />
+	
 	<% if signed_in? %>
 		<%= link_to "Create a Classroom", newclassroom_path, class: "btn btn-large btn-primary" %>
 	<% else %>
 		<%= link_to "Sign up here", signup_path, class: "btn btn-large btn-primary" %>
 	<% end %>
-	
-	<p></p><br />
-	
-	<img src="/assets/notebook_01.png" width="150">
+
 </div>
