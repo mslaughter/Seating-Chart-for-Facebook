@@ -2,7 +2,6 @@
 #
 # Table name: students
 #
-#  table_id             :integer
 #  id                   :integer         primary key
 #  classroom_id         :integer
 #  name                 :string(255)

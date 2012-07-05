@@ -2,7 +2,8 @@
 #
 # Table name: tables
 #
-#  id           :integer         not null, primary key
+#  rotation_id  :integer
+#  id           :integer         primary key
 #  name         :integer
 #  classroom_id :integer
 #  max_students :integer

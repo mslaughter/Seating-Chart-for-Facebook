@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20120705150718) do
   end
 
   create_table "students", :force => true do |t|
-    t.integer  "table_id"
     t.integer  "classroom_id"
     t.string   "name"
     t.boolean  "pin"
@@ -43,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20120705150718) do
   end
 
   create_table "tables", :force => true do |t|
+    t.integer  "rotation_id"
     t.integer  "name"
     t.integer  "classroom_id"
     t.integer  "max_students"

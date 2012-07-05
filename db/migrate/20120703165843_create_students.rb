@@ -2,7 +2,6 @@ class CreateStudents < ActiveRecord::Migration
   def change
     create_table :students do |t|
       t.integer   :classroom_id
-      t.integer   :table_id
       t.string    :name
       t.boolean   :pin, default: false
       t.integer   :pinned_table

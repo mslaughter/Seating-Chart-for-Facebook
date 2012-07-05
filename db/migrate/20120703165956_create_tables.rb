@@ -4,7 +4,8 @@ class CreateTables < ActiveRecord::Migration
       t.integer :name
       t.integer :classroom_id
       t.integer :max_students
-      t.string :students
+      t.string  :students
+      t.integer :rotation_id
 
       t.timestamps
     end

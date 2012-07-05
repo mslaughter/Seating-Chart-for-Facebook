@@ -2,7 +2,8 @@
 #
 # Table name: tables
 #
-#  id           :integer         not null, primary key
+#  rotation_id  :integer
+#  id           :integer         primary key
 #  name         :integer
 #  classroom_id :integer
 #  max_students :integer
@@ -12,13 +13,17 @@
 #
 
 class Table < ActiveRecord::Base
-  attr_accessible :classroom_id, :max_students, :name
+  attr_accessible :classroom_id, :max_students, :name, :students
   
   belongs_to  :classroom
   belongs_to  :rotation
-  has_many    :students
   
-  validates :classroom_id, presence: true
+  before_save :default_values
+  
   validates :max_students, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  
+  def default_values
+    self.students ||= ""
+  end
 end

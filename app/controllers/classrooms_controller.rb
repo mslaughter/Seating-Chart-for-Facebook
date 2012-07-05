@@ -28,33 +28,30 @@ class ClassroomsController < ApplicationController
     puts "Parameters: #{params}\n"
     @classroom.results = {}
     (1..@classroom.iterations).each do |i|
-#      @classroom.results += "!#{i}!"
-      table_hash = {}
       available_students = []
-      for t in @classroom.tables
-        table_hash[t.name] = []
-      end
       for s in @classroom.students
         available_students.push(s.name)
       end
       
       for student in @classroom.students
         if student.pin
-          table_hash[student.pinned_table] = [student.name]
+          @classroom.table.find_by_name(student.pinned_table).students = "#{student.name} "
           available_students.delete(student.name)
         end
       end
       
       available_students.shuffle!
-      for t in table_hash.keys()
-        if table_hash[t].length < 1
-          table_hash[t] = [available_students[0]]
+      for t in @classroom.tables
+        if t.students.blank?
+          t.students = "#{available_students[0]} "
           available_students.delete(available_students[0])
+          puts "Table: #{t.name}, student: #{t.students}"
         end
       end
       
-      for t in table_hash.keys()
-        while (@classroom.tables.find_by_name(t).max_students > table_hash[t].length)
+      
+      for t in @classroom.tables
+        while (t.max_students > t.students.count(" "))
           if (available_students.length <= 0)
             break
             
@@ -62,7 +59,7 @@ class ClassroomsController < ApplicationController
             for s in available_students
               random_num = rand
               prob = 1.0
-              for student in table_hash[t]
+              for student in t.students.split(" ")
                 x = 1.0
                 people_sat_next_to = @classroom.students.find_by_name(s).students_sat_next_to.split(" ")
                 for person in people_sat_next_to
@@ -70,19 +67,19 @@ class ClassroomsController < ApplicationController
                     x *= 2
                   end
                 end
-                prob *= (1/(10**x))
+                prob *= (1/(2**x))
               end
               
               if (random_num <= prob)
-                table_hash[t].push(s)
+                t.students += "#{s} "
                 available_students.delete(s)
                 break
               end
             end
           end
           
-          for student in table_hash[t]
-            for s in table_hash[t]
+          for student in t.students.split(" ")
+            for s in t.students.split(" ")
               if student != s
                 @classroom.students.find_by_name(student).students_sat_next_to += "#{s} "
               end
@@ -103,15 +100,29 @@ class ClassroomsController < ApplicationController
 #      end
 #      temp_str.slice!(0)
 #      @classroom.results += temp_str
-      @classroom.results[i] = table_hash
+#      @classroom.results[i] = table_hash
+
+      @rotation = @classroom.rotations.create(name:i)
+
+      for table in @classroom.tables
+        new_table = table.dup()
+        new_table.classroom_id = nil
+        new_table.rotation_id = @rotation.id
+        new_table.save
+        table.students = ""
+        table.save
+      end
+
+      @rotation.save
+#      puts "Rotation: #{@rotation.name}"
+#      puts "Rotation tables: #{@rotation.tables}"
+      
     end
+    
 #    @classroom.results.slice!(0)
-#    puts "\n\n#{@classroom.results}\n"
-#    if @classroom.save
-#      redirect_to display_classroom_path(@classroom.id)
-#    end
+    
     if @classroom.save
-      puts "\nResults:\n#{@classroom.results}\n"
+#      puts "\nResults:\n#{@classroom.results}\n"
       redirect_to display_classroom_path(@classroom.id)
     end
   end
