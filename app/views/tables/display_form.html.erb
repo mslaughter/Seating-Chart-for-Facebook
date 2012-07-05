@@ -2,7 +2,7 @@
 <h1>Build Classroom - Tables</h1>
 
 <div class="row">
-	<div class="span6 offset3">	
+	<div class="span6 offset2">	
 		<% @classroom = Classroom.find(params[:id]) %>
 		<%= form_tag (addtables_path method: 'post', id: params[:id]) do %>
 		
