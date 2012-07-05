@@ -2,7 +2,8 @@
 #
 # Table name: students
 #
-#  id                   :integer         not null, primary key
+#  table_id             :integer
+#  id                   :integer         primary key
 #  classroom_id         :integer
 #  name                 :string(255)
 #  pin                  :boolean
@@ -16,6 +17,7 @@ class Student < ActiveRecord::Base
   attr_accessible :classroom_id, :name, :pin, :pinned_table
   
   belongs_to  :classroom
+  belongs_to  :table
   
   before_save :default_values
   

@@ -19,6 +19,7 @@ class Classroom < ActiveRecord::Base
   belongs_to  :user
   has_many    :tables, dependent: :destroy
   has_many    :students, dependent: :destroy
+  has_many    :rotations, dependent: :destroy
   
   before_save :default_values
   

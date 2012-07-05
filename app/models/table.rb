@@ -15,6 +15,8 @@ class Table < ActiveRecord::Base
   attr_accessible :classroom_id, :max_students, :name
   
   belongs_to  :classroom
+  belongs_to  :rotation
+  has_many    :students
   
   validates :classroom_id, presence: true
   validates :max_students, presence: true, numericality: { only_integer: true, greater_than: 0 }

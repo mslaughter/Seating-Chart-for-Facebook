@@ -25,8 +25,10 @@ class ClassroomsController < ApplicationController
   
   def results
     @classroom = Classroom.find(params[:id])
+    puts "Parameters: #{params}\n"
+    @classroom.results = {}
     (1..@classroom.iterations).each do |i|
-      @classroom.results += "!#{i}!"
+#      @classroom.results += "!#{i}!"
       table_hash = {}
       available_students = []
       for t in @classroom.tables
@@ -43,19 +45,11 @@ class ClassroomsController < ApplicationController
         end
       end
       
-      puts "Table hash after pinning: #{table_hash}"
-      
+      available_students.shuffle!
       for t in table_hash.keys()
         if table_hash[t].length < 1
-          while (1 > table_hash[t].length)
-            for s in available_students
-              if (rand < (1.0/@classroom.tables.length))
-                table_hash[t] = [s]
-                available_students.delete(s)
-                break
-              end
-            end
-          end
+          table_hash[t] = [available_students[0]]
+          available_students.delete(available_students[0])
         end
       end
       
@@ -99,27 +93,32 @@ class ClassroomsController < ApplicationController
       end
       
       
-      temp_str = ""
-      for t in table_hash.keys()
-        temp_str += ":#{t}:"
-        for s in table_hash[t]
-          temp_str += "#{s}."
-        end
-        temp_str.slice!(-1)
-      end
-      temp_str.slice!(0)
-      @classroom.results += temp_str
+#      temp_str = ""
+#      for t in table_hash.keys()
+#        temp_str += ":#{t}:"
+#        for s in table_hash[t]
+#          temp_str += "#{s}."
+#        end
+#        temp_str.slice!(-1)
+#      end
+#      temp_str.slice!(0)
+#      @classroom.results += temp_str
+      @classroom.results[i] = table_hash
     end
-    @classroom.results.slice!(0)
-    puts "\n\n#{@classroom.results}\n"
+#    @classroom.results.slice!(0)
+#    puts "\n\n#{@classroom.results}\n"
+#    if @classroom.save
+#      redirect_to display_classroom_path(@classroom.id)
+#    end
     if @classroom.save
+      puts "\nResults:\n#{@classroom.results}\n"
       redirect_to display_classroom_path(@classroom.id)
     end
   end
   
   def show
     @classroom = Classroom.find(params[:id])
-    @results_hash = convert_string_to_hash(@classroom.results)
+#    @results_hash = convert_string_to_hash(@classroom.results)
   end
   
   private

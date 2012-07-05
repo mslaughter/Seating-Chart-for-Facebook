@@ -11,12 +11,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% for iteration in @results_hash.keys() %>
+		<% puts "results class: #{@classroom.results.class()}" %>
+		<% for iteration in @classroom.results.keys() %>
 		<tr>
 			<td><%= "Session #{iteration}" %></td>
-			<% for table in @results_hash[iteration].keys() %>
+			<% for table in @classroom.results[iteration].keys() %>
 				<% nice_names = "" %>
-				<% for name in @results_hash[iteration][table] %>
+				<% for name in @classroom.results[iteration][table] %>
 					<% nice_names += "#{name}, " %>
 				<% end %>
 				<% nice_names.slice!(-1) %>
