@@ -25,23 +25,27 @@ class ClassroomsController < ApplicationController
   
   def results
     @classroom = Classroom.find(params[:id])
-    puts "Parameters: #{params}\n"
     @classroom.results = {}
+    puts "students: #{@classroom.students}"
     (1..@classroom.iterations).each do |i|
       available_students = []
       for s in @classroom.students
         available_students.push(s.name)
       end
       
+      puts "Available students: #{available_students}"
+      
       for student in @classroom.students
         if student.pin
-          @classroom.table.find_by_name(student.pinned_table).students = "#{student.name} "
+          @classroom.tables.find_by_name(student.pinned_table).students = "#{student.name} "
+          puts "Table #{@classroom.tables.find_by_name(student.pinned_table).name} - #{@classroom.tables.find_by_name(student.pinned_table).students}"
           available_students.delete(student.name)
         end
       end
       
       available_students.shuffle!
       for t in @classroom.tables
+        puts "students of table #{t.name}: #{t.students}"
         if t.students.blank?
           t.students = "#{available_students[0]} "
           available_students.delete(available_students[0])

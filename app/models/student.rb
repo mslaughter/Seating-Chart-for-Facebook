@@ -24,5 +24,6 @@ class Student < ActiveRecord::Base
   
   def default_values
     self.students_sat_next_to ||= ""
+    self.pin ||= false
   end
 end

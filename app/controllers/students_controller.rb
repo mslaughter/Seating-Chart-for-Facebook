@@ -16,7 +16,9 @@ class StudentsController < ApplicationController
     (1..@classroom.num_students).each do |t|
       @classroom.students.build(params["student #{t}"])
     end
+    puts "\nstudents1: #{@classroom.students}"
     if @classroom.save
+      puts "\nstudents2: #{@classroom.students}"
       is_pin_path = false
       for student in @classroom.students
         if student.pin
